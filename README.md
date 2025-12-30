@@ -124,7 +124,34 @@ You can modify `main.py` to change behavior:
 
 ---
 
+## 🐳 Dockerization (Advanced)
+
+You can run this project in a Docker container. However, because it requires access to your **Webcam** and a **Display Window**, there are special considerations.
+
+### 1. Build the Image
+```bash
+docker build -t multi-face-sense .
+```
+
+### 2. Running with GUI and Devices (Linux)
+On Linux, you can pass the display and device directly:
+```bash
+docker run -it --rm \
+    --env="DISPLAY" \
+    --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+    --device="/dev/video0:/dev/video0" \
+    multi-face-sense
+```
+
+### 3. Running on Windows
+Docker Desktop on Windows has limitations for passing GPUs and USB devices natively. 
+*   **Recommendation**: Run it natively in your Anaconda environment for the best performance with hardware.
+*   **Headless Mode**: If you modify the code to save logs instead of showing a window (`cv2.imshow`), it will work easily in Docker.
+
+---
+
 ## 🔧 Troubleshooting
+
 
 *   **"Error: Could not open video source"**: Ensure your webcam is not being used by another application (like Zoom or Teams).
 *   **Slow Performance**: MTCNN is accurate but CPU intensive. If you experience lag, try resizing the input frame in the code (`cv2.resize`) before passing it to the detector.

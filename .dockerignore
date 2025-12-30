@@ -1,0 +1,11 @@
+.git
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.db
+.ipynb_checkpoints
+requirements_stampede.txt
+mtcnn.py.bak
+data/
+arduino/
